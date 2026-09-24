@@ -70,6 +70,16 @@ python3 scripts/validate_notebook_structure.py templates/rag-technique-template.
 Validate several notebooks at once by passing multiple paths. A non-zero exit
 status means at least one notebook failed the checks.
 
+Run canonical offline code cells top-to-bottom:
+
+```bash
+python3 scripts/run_notebook_smoke.py 01-rag-foundations/*.ipynb
+```
+
+Cells tagged `manual`, `online`, or `paid` are skipped by default. Pass
+`--run-all-tags` only when you intentionally want those side effects and have
+configured the required services.
+
 ## Troubleshooting
 
 | Symptom | Likely cause | Action |

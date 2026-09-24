@@ -19,8 +19,9 @@ RAG mental model
   -> production operations
 ```
 
-The foundation notebooks are the next work package. Until they are added, use
-the [learning plan](../docs/RAG_LEARNING_101_PLAN.md) as the curriculum map and
+Continue with the three lessons in
+[RAG Foundations](../01-rag-foundations/README.md). Use the
+[learning plan](../docs/RAG_LEARNING_101_PLAN.md) as the full curriculum map and
 the [tracker](../docs/RAG_LEARNING_TRACKER.md) as the source of truth.
 
 ## Before opening a notebook

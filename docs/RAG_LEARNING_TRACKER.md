@@ -25,8 +25,8 @@ Action labels:
 | Workstream | Done | In progress | Remaining | Current note |
 |---|---:|---:|---:|---|
 | Repository discovery and planning | 3 | 0 | 0 | Inventory, plan, and tracker created |
-| Phase 0: backbone and reproducibility | 3 | 1 | 4 | Template/setup complete; static validation added |
-| Phase 1: foundations and baseline | 0 | 0 | 6 | Must precede technique comparisons |
+| Phase 0: backbone and reproducibility | 5 | 0 | 3 | Structure and smoke validation complete; migration/cleanup remain |
+| Phase 1: foundations and baseline | 6 | 0 | 0 | Three lessons, shared corpus, golden set, and scorecard complete |
 | Existing notebook reconstruction | 0 | 0 | 33 | 32 unique; one exact duplicate |
 | New production learning modules | 0 | 0 | 9 | Evaluation through deployment/capstone |
 | Final clean-run and editorial review | 0 | 0 | 2 | Repository-wide gates |
@@ -50,8 +50,8 @@ resized or split.
 | P0-01A | Define target folder structure and migration map | Done | See `docs/TARGET_REPOSITORY_STRUCTURE.md`; no notebooks moved or deleted yet |
 | P0-02 | Create canonical notebook template | Done | Template contains the learning flow, experiments, evaluation, production notes, practice, and recall |
 | P0-03 | Add environment/setup guide and `.env.example` | Done | Canonical Python version, credentials, kernel, execution rules, and troubleshooting documented |
-| P0-04 | Add repository-root path/config helper | Ready | Remove notebook-CWD assumptions |
-| P0-05 | Add notebook lint/smoke validation | In progress | Static structure/hygiene validator and three unit tests pass; execution smoke runner remains |
+| P0-04 | Add repository-root path/config helper | Done | `src/rag_101/paths.py` resolves and optionally validates repository paths |
+| P0-05 | Add notebook lint/smoke validation | Done | Static structure/hygiene validation plus tag-aware top-to-bottom execution runner |
 | P0-06 | Align direct dependencies, lock file, imports, and kernel metadata | Planned | Requires clean-run compatibility audit |
 | P0-07 | Remove tracked junk and consolidate exact duplicates | Ready | Includes `.DS_Store`, Word lock file, duplicate `2-ReAct_1.ipynb` |
 
@@ -59,12 +59,12 @@ resized or split.
 
 | ID | Deliverable | Status | Depends on |
 |---|---|---|---|
-| FND-01 | Start-here notebook: RAG mental model and architecture | Ready | P0-02 |
-| FND-02 | Minimal framework-free retrieval example | Planned | FND-01 |
-| FND-03 | Canonical end-to-end LangChain baseline | Planned | FND-02, P0-06 |
-| FND-04 | Shared small corpus with stable document/chunk IDs | Planned | P0-04 |
-| FND-05 | Golden questions with expected source documents | Planned | FND-04 |
-| FND-06 | Baseline retrieval/answer/latency scorecard | Planned | FND-03, FND-05 |
+| FND-01 | Start-here notebook: RAG mental model and architecture | Done | Clear offline/online paths, failure boundaries, citations, and abstention |
+| FND-02 | Minimal framework-free retrieval example | Done | Standard-library tokenization, TF-IDF, cosine search, and controlled comparison |
+| FND-03 | Canonical end-to-end LangChain baseline | Done | `Document`, `Embeddings`, `InMemoryVectorStore`, and runnable composition |
+| FND-04 | Shared small corpus with stable document/chunk IDs | Done | Eight fictional Northstar policy documents with metadata |
+| FND-05 | Golden questions with expected source documents | Done | Seven answerable questions plus one abstention case |
+| FND-06 | Baseline retrieval/answer/latency scorecard | Done | Retrieval, answer, citation, abstention, parity, and latency signals |
 
 ## Existing notebook reconstruction backlog
 
@@ -181,9 +181,10 @@ resized or split.
 | 2026-09-24 | Learning plan and tracker created | Curriculum sequence, notebook contract, phased backlog, and quality gate established |
 | 2026-09-24 | Target repository structure defined | Added canonical curriculum tree and safe migration rules |
 | 2026-09-24 | WP-001 course backbone completed | Added start-here guide, setup, credential template, canonical notebook template, validator, and tests |
+| 2026-09-24 | WP-002 RAG foundations completed | Added three runnable lessons, shared components, corpus, golden questions, and baseline scorecard |
 
 ## Next recommended slice
 
-Complete `P0-02` through `P0-04`, then build `FND-01` through `FND-06` as one
-vertical slice. That creates the standard, shared data, baseline, and metrics
-needed to improve every existing notebook consistently.
+Start the first existing-notebook reconstruction slice with `ING-01` and
+`ING-07`. Standardize the ingestion overview and rebuild the prose-free Markdown
+parser notebook using the shared document/path conventions and evaluation style.
