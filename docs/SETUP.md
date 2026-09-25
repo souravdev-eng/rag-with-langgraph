@@ -29,8 +29,8 @@ Create a local environment file:
 cp .env.example .env
 ```
 
-Add only the keys required by the notebook you intend to run. The repository
-currently contains lessons that may use OpenAI, Groq, Tavily, or LangSmith.
+The completed curriculum notebooks run offline and do not require credentials.
+Use this file only for an optional provider-backed extension you add yourself.
 
 Callout - Warning:
 Never put a real key in a notebook, source file, saved output, or committed
@@ -52,7 +52,8 @@ uv run python -m ipykernel install --user --name rag-learning-101 --display-name
 
 ## 4. Execution rules
 
-- Start notebook sessions from the repository root.
+- Start notebook sessions from the repository root; this is the canonical
+  location. The checked-in lessons are also verified from their own folders.
 - Run cells top-to-bottom; do not depend on hidden state from an earlier session.
 - Use repository-relative paths and the shared path helper once it is added.
 - Treat network/provider sections as optional unless the lesson says otherwise.
@@ -64,7 +65,7 @@ The validator checks the canonical learning sections, notebook format, saved
 errors, suspicious secret prefixes, and machine-specific absolute paths:
 
 ```bash
-python3 scripts/validate_notebook_structure.py templates/rag-technique-template.ipynb
+uv run python scripts/validate_notebook_structure.py templates/rag-technique-template.ipynb
 ```
 
 Validate several notebooks at once by passing multiple paths. A non-zero exit
@@ -73,7 +74,7 @@ status means at least one notebook failed the checks.
 Run canonical offline code cells top-to-bottom:
 
 ```bash
-python3 scripts/run_notebook_smoke.py 01-rag-foundations/*.ipynb
+uv run python scripts/run_notebook_smoke.py 01-rag-foundations/*.ipynb
 ```
 
 Cells tagged `manual`, `online`, or `paid` are skipped by default. Pass
@@ -85,8 +86,8 @@ configured the required services.
 | Symptom | Likely cause | Action |
 |---|---|---|
 | Import fails | Wrong interpreter or incomplete sync | Select `.venv/bin/python`, then run `uv sync --python 3.12` |
-| API authentication fails | Missing or wrong provider key | Check `.env` and the notebook prerequisites |
-| File is not found | Notebook started from another directory | Start from the repository root |
+| API authentication fails in an extension | Missing or wrong provider key | Check `.env` and the provider prerequisites |
+| File is not found in a custom lesson | Ambiguous relative path | Resolve from the repository root helper |
 | Results change between runs | Model nondeterminism or unseeded local code | Set supported seeds and compare metrics over multiple cases |
 | Notebook is slow on first run | Model/package download | Confirm the download source and allow the first-run setup to finish |
 

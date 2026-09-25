@@ -1,5 +1,18 @@
 # 🔍 Section 9: Hybrid Search Strategies
 
+## Verified notebook sequence
+
+1. [Sparse, dense, and hybrid retrieval](1-densesparse.ipynb) — BM25, lossy
+   dense LSA, branch evaluation, and reciprocal-rank fusion.
+2. [Reranking](2-reranking.ipynb) — candidate recall, second-stage precision,
+   candidate-depth experiments, and MRR.
+3. [Maximal marginal relevance](3-mmr.ipynb) — relevance/diversity trade-offs,
+   lambda sweeps, and redundancy checks.
+
+These notebooks use offline, deterministic examples and are saved with verified
+outputs. The older notes below remain as supplementary reference and may mention
+optional packages or hosted models not required by the canonical notebooks.
+
 ---
 
 ## ⚡ TL;DR (30-Second Summary)

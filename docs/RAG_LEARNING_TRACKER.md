@@ -1,6 +1,6 @@
 # Production RAG Learning 101 — Progress Tracker
 
-Last updated: 2026-09-24
+Last updated: 2026-09-25
 
 ## Status legend
 
@@ -25,11 +25,11 @@ Action labels:
 | Workstream | Done | In progress | Remaining | Current note |
 |---|---:|---:|---:|---|
 | Repository discovery and planning | 3 | 0 | 0 | Inventory, plan, and tracker created |
-| Phase 0: backbone and reproducibility | 5 | 0 | 3 | Structure and smoke validation complete; migration/cleanup remain |
+| Phase 0: backbone and reproducibility | 7 | 0 | 1 | Dependencies, kernels, navigation, and clean-run compatibility aligned; tracked-junk cleanup remains |
 | Phase 1: foundations and baseline | 6 | 0 | 0 | Three lessons, shared corpus, golden set, and scorecard complete |
-| Existing notebook reconstruction | 0 | 0 | 33 | 32 unique; one exact duplicate |
+| Existing notebook reconstruction | 33 | 0 | 0 | All existing lessons rebuilt, executed, and visually reviewed |
 | New production learning modules | 0 | 0 | 9 | Evaluation through deployment/capstone |
-| Final clean-run and editorial review | 0 | 0 | 2 | Repository-wide gates |
+| Final clean-run and editorial review | 2 | 0 | 0 | All 39 course notebooks pass both repository-root and notebook-directory gates |
 
 The counts above track deliverables, not percentages. They change when work is
 resized or split.
@@ -46,14 +46,14 @@ resized or split.
 
 | ID | Deliverable | Status | Notes |
 |---|---|---|---|
-| P0-01 | Expand root README into a curriculum map | Ready | Initial links exist; detailed map comes after canonical sequence decision |
+| P0-01 | Expand root README into a curriculum map | Done | Root navigation links every completed lesson in the recommended sequence |
 | P0-01A | Define target folder structure and migration map | Done | See `docs/TARGET_REPOSITORY_STRUCTURE.md`; no notebooks moved or deleted yet |
 | P0-02 | Create canonical notebook template | Done | Template contains the learning flow, experiments, evaluation, production notes, practice, and recall |
 | P0-03 | Add environment/setup guide and `.env.example` | Done | Canonical Python version, credentials, kernel, execution rules, and troubleshooting documented |
 | P0-04 | Add repository-root path/config helper | Done | `src/rag_101/paths.py` resolves and optionally validates repository paths |
 | P0-05 | Add notebook lint/smoke validation | Done | Static structure/hygiene validation plus tag-aware top-to-bottom execution runner |
-| P0-06 | Align direct dependencies, lock file, imports, and kernel metadata | Planned | Requires clean-run compatibility audit |
-| P0-07 | Remove tracked junk and consolidate exact duplicates | Ready | Includes `.DS_Store`, Word lock file, duplicate `2-ReAct_1.ipynb` |
+| P0-06 | Align direct dependencies, lock file, imports, and kernel metadata | Done | Python 3.12 metadata, direct notebook tooling dependencies, lock file, and clean-run compatibility verified |
+| P0-07 | Remove tracked junk and consolidate exact duplicates | Ready | Exact duplicate is a byte-identical compatibility copy; tracked-junk deletion remains a separate cleanup action |
 
 ## Phase 1 — Foundations and baseline
 
@@ -72,74 +72,74 @@ resized or split.
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| ING-01 | `05-DataIngestParsing/1-dataingestion.ipynb` | Rewrite | P0 | Planned | Make it the ingestion overview; move deep chunking to the chunking stage |
-| ING-02 | `05-DataIngestParsing/2-dataparsingpdf.ipynb` | Enrich | P1 | Planned | Text vs scanned PDFs, layout/tables, OCR, parser comparison, quality checks |
-| ING-03 | `05-DataIngestParsing/3-dataparsingdoc.ipynb` | Rewrite | P1 | Planned | Explain loader choice, structure preservation, metadata, and failure cases |
-| ING-04 | `05-DataIngestParsing/4-csvexcelparsing.ipynb` | Enrich | P1 | Planned | Row/document grain, schema, nulls, formulas, and retrieval implications |
-| ING-05 | `05-DataIngestParsing/5-jsonparsing.ipynb` | Enrich | P1 | Planned | JSON/JSONL paths, nested structures, metadata, malformed records |
-| ING-06 | `05-DataIngestParsing/6-databaseparsing.ipynb` | Enrich | P1 | Planned | Snapshot vs live SQL retrieval, row grain, provenance, and access safety |
-| ING-07 | `05-DataIngestParsing/7-markdownparser.ipynb` | Rewrite | P0 | Planned | Add all missing prose; replace 600+ KB saved output with focused examples |
+| ING-01 | `05-DataIngestParsing/1-dataingestion.ipynb` | Rewrite | P0 | Done | Explicit ingestion contract, stable IDs, provenance, validation, and evaluation |
+| ING-02 | `05-DataIngestParsing/2-dataparsingpdf.ipynb` | Enrich | P1 | Done | Page-aware text extraction, coverage checks, OCR/layout decision points |
+| ING-03 | `05-DataIngestParsing/3-dataparsingdoc.ipynb` | Rewrite | P1 | Done | Typed paragraph/heading/table blocks with structural checks |
+| ING-04 | `05-DataIngestParsing/4-csvexcelparsing.ipynb` | Enrich | P1 | Done | Schema/null/parity checks and row-grain retrieval documents |
+| ING-05 | `05-DataIngestParsing/5-jsonparsing.ipynb` | Enrich | P1 | Done | Nested-path and JSONL record parsing with line provenance |
+| ING-06 | `05-DataIngestParsing/6-databaseparsing.ipynb` | Enrich | P1 | Done | Read-only bounded snapshot, explicit join grain, and provenance |
+| ING-07 | `05-DataIngestParsing/7-markdownparser.ipynb` | Rewrite | P0 | Done | Heading-aware parser, lossless coverage check, and focused retrieval comparison |
 
 ### Embeddings, chunking, and vector storage
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| EMB-01 | `06-Vector-embedding-and-vector-databases/embedding.ipynb` | Enrich | P0 | Planned | Geometry, cosine/dot/L2, normalization, domain fit, batching, evaluation |
-| EMB-02 | `06-Vector-embedding-and-vector-databases/openaiembeddings.ipynb` | Rewrite | P1 | Planned | Provider-neutral baseline, model configuration, compact plots/outputs, cost notes |
-| CHK-01 | `08-advanced-chunking-and-preprocessing/semanti_chunking.ipynb` | Enrich | P0 | Planned | Compare against token/recursive baselines and measure retrieval impact |
+| EMB-01 | `06-Vector-embedding-and-vector-databases/embedding.ipynb` | Enrich | P0 | Done | Geometry, dot/cosine/L2, normalization, ranking checks, and production guidance |
+| EMB-02 | `06-Vector-embedding-and-vector-databases/openaiembeddings.ipynb` | Rewrite | P1 | Done | Provider-neutral contract, deterministic offline comparison, migration and cost notes |
+| CHK-01 | `08-advanced-chunking-and-preprocessing/semanti_chunking.ipynb` | Enrich | P0 | Done | Adjacent-similarity breakpoints, fixed baseline, coverage and over-segmentation checks |
 
 ### Retrieval and reranking
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| RET-01 | `09-hybrid-search-strategies/1-densesparse.ipynb` | Enrich | P0 | Planned | Explain BM25/dense scoring, fusion, normalization, and evaluate both branches |
-| RET-02 | `09-hybrid-search-strategies/2-reranking.ipynb` | Enrich | P0 | Planned | Candidate depth, cross-encoder behavior, metrics, latency, and failure modes |
-| RET-03 | `09-hybrid-search-strategies/3-mmr.ipynb` | Rewrite | P1 | Planned | Show relevance/diversity objective and compare `lambda_mult` settings |
+| RET-01 | `09-hybrid-search-strategies/1-densesparse.ipynb` | Enrich | P0 | Done | BM25, lossy dense LSA, equal/weighted RRF, branch metrics, and fusion failure case |
+| RET-02 | `09-hybrid-search-strategies/2-reranking.ipynb` | Enrich | P0 | Done | Candidate-depth recall gate, transparent pairwise proxy, MRR, and latency boundary |
+| RET-03 | `09-hybrid-search-strategies/3-mmr.ipynb` | Rewrite | P1 | Done | From-scratch MMR, lambda sweep, redundancy metrics, and irrelevant-novelty failure |
 
 ### Query transformation
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| QRY-01 | `10-query-enhancement/1-query_expansion.ipynb` | Enrich | P1 | Planned | Expansion strategies, query drift, deduplication, and retrieval measurement |
-| QRY-02 | `10-query-enhancement/2-query_decomposition.ipynb` | Enrich | P1 | Planned | Atomic subqueries, multi-hop aggregation, parallelism, and completeness |
-| QRY-03 | `10-query-enhancement/3-HyDE.ipynb` | Rewrite | P1 | Planned | Clean generated artifacts/outputs; explain domain mismatch and compare baseline |
+| QRY-01 | `10-query-enhancement/1-query_expansion.ipynb` | Enrich | P1 | Done | Curated expansion, deduplication, hit@1, and aggressive-drift failure case |
+| QRY-02 | `10-query-enhancement/2-query_decomposition.ipynb` | Enrich | P1 | Done | Atomic subqueries, evidence coverage, parallel retrieval, and cited synthesis |
+| QRY-03 | `10-query-enhancement/3-HyDE.ipynb` | Rewrite | P1 | Done | Baseline comparison, hypothetical-document retrieval, and strict evidence boundary |
 
 ### Multimodal RAG
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| MM-01 | `11-multiModal-multi-modal-rag/multimodalopenai.ipynb` | Rewrite | P1 | Planned | Add modality mental model, extraction/fusion choices, citations, and evaluation |
+| MM-01 | `11-multiModal-multi-modal-rag/multimodalopenai.ipynb` | Rewrite | P1 | Done | Text/image records, bar-geometry check, modality agreement, citations, and numeric abstention |
 
 ### LangGraph and agentic foundations
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| AGF-01 | `section-14-agents-architecture/streaming.ipynb` | Enrich | P1 | Planned | State vs token streaming, sync/async choices, backpressure, cancellation |
-| AGF-02 | `section-14-agents-architecture/ReActAgents.ipynb` | Enrich | P1 | Planned | Tool loop, state, termination, errors, memory boundary, observability |
-| AGR-01 | `Section-15-agentic-rag/1-agenticrag.ipynb` | Consolidate | P1 | Planned | Merge the best graded/rewrite workflow with the simpler introduction |
-| AGR-02 | `Section-15-agentic-rag/1-agenticrag_1.ipynb` | Consolidate | P1 | Planned | Source for the canonical Agentic RAG lesson; retire after verification |
-| AGR-03 | `Section-15-agentic-rag/2-ReAct.ipynb` | Rewrite | P1 | Planned | Canonical retrieval-tool ReAct lesson with tool contracts and loop budget |
-| AGR-04 | `Section-15-agentic-rag/2-ReAct_1.ipynb` | Consolidate | P0 | Planned | Exact duplicate; remove after canonical notebook is validated |
+| AGF-01 | `section-14-agents-architecture/streaming.ipynb` | Enrich | P1 | Done | Values/updates event contracts, reconstruction parity, cancellation/backpressure notes |
+| AGF-02 | `section-14-agents-architecture/ReActAgents.ipynb` | Enrich | P1 | Done | Offline typed tool loop, routing, abstention, step budget, and observable trace |
+| AGR-01 | `Section-15-agentic-rag/1-agenticrag.ipynb` | Consolidate | P1 | Done | Bounded retrieve-grade-rewrite workflow with citation and abstention |
+| AGR-02 | `Section-15-agentic-rag/1-agenticrag_1.ipynb` | Consolidate | P1 | Done | Three-route retrieve/calculate/abstain controller with labeled checks |
+| AGR-03 | `Section-15-agentic-rag/2-ReAct.ipynb` | Rewrite | P1 | Done | Canonical typed retrieval-tool loop with citation, abstention, and step budget |
+| AGR-04 | `Section-15-agentic-rag/2-ReAct_1.ipynb` | Consolidate | P0 | Done | Byte-identical validated compatibility copy retained pending deletion approval |
 
 ### Autonomous and multi-agent patterns
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| AUT-01 | `section-16-autonomous-rag/3-COTRag.ipynb` | Rewrite | P1 | Planned | Reframe as explicit planning/retrieval steps; avoid reliance on hidden reasoning |
-| AUT-02 | `section-16-autonomous-rag/4-Selfreflection.ipynb` | Rewrite | P1 | Planned | Rubric-based critique, bounded revisions, judge limitations, missing input fix |
-| AUT-03 | `section-16-autonomous-rag/5-QueryPlanningdecomposition.ipynb` | Enrich | P2 | Planned | Distinguish from basic decomposition; add orchestration and synthesis checks |
-| AUT-04 | `section-16-autonomous-rag/6-Iterativeretrieval.ipynb` | Rewrite | P0 | Planned | Validate graph routing; add termination, retry budget, and missing input fix |
-| AUT-05 | `section-16-autonomous-rag/7-answersynthesis.ipynb` | Rewrite | P1 | Planned | Provenance-aware merge, conflict handling, parallel retrieval, missing inputs |
-| MAG-01 | `section-17-multi-agents-rags/8-multiagent.ipynb` | Split | P2 | Planned | Create focused network, supervisor, and hierarchical-team notebooks |
+| AUT-01 | `section-16-autonomous-rag/3-COTRag.ipynb` | Rewrite | P1 | Done | Explicit task plan, evidence slots, coverage gate, and cited synthesis |
+| AUT-02 | `section-16-autonomous-rag/4-Selfreflection.ipynb` | Rewrite | P1 | Done | Evidence-backed rubric, one-revision budget, and deterministic acceptance gate |
+| AUT-03 | `section-16-autonomous-rag/5-QueryPlanningdecomposition.ipynb` | Enrich | P2 | Done | Typed dependency graph, parallel-ready retrievals, and complete comparison |
+| AUT-04 | `section-16-autonomous-rag/6-Iterativeretrieval.ipynb` | Rewrite | P0 | Done | Query history, duplicate guard, success path, and exhausted-budget abstention |
+| AUT-05 | `section-16-autonomous-rag/7-answersynthesis.ipynb` | Rewrite | P1 | Done | Effective-date conflict detection, declared resolution, and provenance-aware answer |
+| MAG-01 | `section-17-multi-agents-rags/8-multiagent.ipynb` | Split | P2 | Done | Compatibility overview plus focused network, supervisor, and hierarchical-team lessons |
 
 ### Corrective, adaptive, memory, and cache patterns
 
 | ID | Notebook | Action | Priority | Status | Primary upgrade |
 |---|---|---|---|---|---|
-| ADV-01 | `section-18-corrective-rag/2-CorrectiveRAG.ipynb` | Rewrite | P1 | Planned | Add CRAG mental model, graders, thresholds, fallback policy, evaluation |
-| ADV-02 | `section-19-adaptive-rag/adaptive-rag.ipynb` | Rewrite | P1 | Planned | Add routing model, branch evaluation, loop safety, and cost trade-offs |
-| MEM-01 | `section-20-rag-with-persistant-memory/ragmemory.ipynb` | Rewrite | P1 | Planned | Separate conversation memory, checkpoints, long-term memory, privacy, expiry |
-| CAG-01 | `section-21-cache-rag/cache_augment_generation.ipynb` | Rewrite | P1 | Planned | Separate CAG/prompt caching from semantic answer caching and invalidation |
+| ADV-01 | `section-18-corrective-rag/2-CorrectiveRAG.ipynb` | Rewrite | P1 | Done | Transparent grader, threshold, one rewrite, bounded fallback, and abstention policy |
+| ADV-02 | `section-19-adaptive-rag/adaptive-rag.ipynb` | Rewrite | P1 | Done | Labeled routing, branch contracts, shared budget, and measured cost trade-off |
+| MEM-01 | `section-20-rag-with-persistant-memory/ragmemory.ipynb` | Rewrite | P1 | Done | Conversation, checkpoint, and consented long-term memory with TTL/delete checks |
+| CAG-01 | `section-21-cache-rag/cache_augment_generation.ipynb` | Rewrite | P1 | Done | Context-cache reuse versus semantic-answer risk with version/as-of invalidation |
 
 ## New modules required for production coverage
 
@@ -157,21 +157,21 @@ resized or split.
 
 ## Known cleanup and validation queue
 
-- [ ] Check every notebook from repository root and from its own directory; make
+- [x] Check every notebook from repository root and from its own directory; make
   one documented execution location canonical.
-- [ ] Fix missing example references such as `internal_docs.txt` and ambiguous
+- [x] Fix missing example references such as `internal_docs.txt` and ambiguous
   relative paths before calling those notebooks runnable.
-- [ ] Replace machine-specific paths and warnings stored in outputs.
-- [ ] Remove large full-document dumps from saved outputs.
-- [ ] Normalize direct imports (`langchain_core`, `langchain_community`, provider
+- [x] Replace machine-specific paths and warnings stored in outputs.
+- [x] Remove large full-document dumps from saved outputs.
+- [x] Normalize direct imports (`langchain_core`, `langchain_community`, provider
   packages, and text splitters) after version compatibility is verified.
-- [ ] Reconcile Python 3.12/3.13 notebook metadata with the declared environment.
-- [ ] Make provider/model choices configurable; identify stale or unavailable
+- [x] Reconcile Python 3.12/3.13 notebook metadata with the declared environment.
+- [x] Make provider/model choices configurable; identify stale or unavailable
   model identifiers during online validation.
-- [ ] Add missing direct dependencies instead of relying on transitive installs.
+- [x] Add missing direct dependencies instead of relying on transitive installs.
 - [ ] Normalize naming and spelling only with a path migration map
   (`persistent`, `semantic`, consistent section casing).
-- [ ] Verify graph topology and termination in every looping LangGraph notebook.
+- [x] Verify graph topology and termination in every looping LangGraph notebook.
 
 ## Review log
 
@@ -182,9 +182,18 @@ resized or split.
 | 2026-09-24 | Target repository structure defined | Added canonical curriculum tree and safe migration rules |
 | 2026-09-24 | WP-001 course backbone completed | Added start-here guide, setup, credential template, canonical notebook template, validator, and tests |
 | 2026-09-24 | WP-002 RAG foundations completed | Added three runnable lessons, shared components, corpus, golden questions, and baseline scorecard |
+| 2026-09-25 | ING-01 through ING-07 completed | Rebuilt all ingestion lessons, executed them top-to-bottom, visually reviewed rendered HTML, and reduced saved notebook size/output noise |
+| 2026-09-25 | EMB-01, EMB-02, and CHK-01 completed | Added transparent geometry/provider contracts and an evaluated offline semantic-chunking lesson; executed and visually reviewed all three |
+| 2026-09-25 | RET-01 through RET-03 completed | Rebuilt dense/sparse/hybrid, reranking, and MMR lessons; retained measured failure cases, executed, and visually reviewed all three |
+| 2026-09-25 | QRY-01 through QRY-03 completed | Rebuilt expansion, decomposition, and HyDE with drift, completeness, and hallucinated-hypothesis checks; executed and visually reviewed all three |
+| 2026-09-25 | MM-01, AGF-01, and AGF-02 completed | Rebuilt multimodal extraction/fusion and LangGraph streaming/ReAct foundations; executed and visually reviewed all three |
+| 2026-09-25 | AGR-01 through AGR-04 completed | Consolidated correction, routing, and retrieval-tool loop lessons; kept the approved-to-retain duplicate path byte-identical after validation |
+| 2026-09-25 | AUT-01 through AUT-05 completed | Rebuilt planning, reflection, dependency-aware orchestration, iterative retrieval, and conflict-aware synthesis with bounded control flow |
+| 2026-09-25 | MAG-01, ADV-01, ADV-02, MEM-01, and CAG-01 completed | Split multi-agent topologies and rebuilt corrective, adaptive, memory, and cache lessons with explicit failure boundaries |
+| 2026-09-25 | Repository-wide clean run completed | All 39 course notebooks passed structure, smoke, root execution, saved-output, and visual-review gates; 10 support tests passed |
 
 ## Next recommended slice
 
-Start the first existing-notebook reconstruction slice with `ING-01` and
-`ING-07`. Standardize the ingestion overview and rebuild the prose-free Markdown
-parser notebook using the shared document/path conventions and evaluation style.
+Existing notebook reconstruction is complete. The next independent slice is
+either the explicitly approved tracked-junk cleanup (`P0-07`) or the separate
+new-production-module backlog (`NEW-01` through `NEW-09`).

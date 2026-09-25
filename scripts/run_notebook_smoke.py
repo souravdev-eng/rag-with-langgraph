@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
+from types import ModuleType
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -37,28 +39,35 @@ def run_notebook(
     except (FileNotFoundError, json.JSONDecodeError) as exc:
         return SmokeResult(path, 0, 0, f"{type(exc).__name__}: {exc}")
 
-    namespace: dict[str, object] = {"__name__": "__notebook_smoke__"}
+    module_name = f"__notebook_smoke_{abs(hash(path.resolve()))}__"
+    module = ModuleType(module_name)
+    module.__file__ = str(path)
+    namespace = module.__dict__
+    sys.modules[module_name] = module
     executed = 0
     skipped = 0
 
-    for cell_number, cell in enumerate(notebook.get("cells", []), start=1):
-        if cell.get("cell_type") != "code":
-            continue
-        tags = frozenset(cell.get("metadata", {}).get("tags", []))
-        if tags.intersection(skip_tags):
-            skipped += 1
-            continue
-        try:
-            source = _source_text(cell)
-            exec(compile(source, f"{path}:cell-{cell_number}", "exec"), namespace)
-            executed += 1
-        except Exception as exc:  # noqa: BLE001 - report notebook failure verbatim
-            return SmokeResult(
-                path,
-                executed,
-                skipped,
-                f"cell {cell_number}: {type(exc).__name__}: {exc}",
-            )
+    try:
+        for cell_number, cell in enumerate(notebook.get("cells", []), start=1):
+            if cell.get("cell_type") != "code":
+                continue
+            tags = frozenset(cell.get("metadata", {}).get("tags", []))
+            if tags.intersection(skip_tags):
+                skipped += 1
+                continue
+            try:
+                source = _source_text(cell)
+                exec(compile(source, f"{path}:cell-{cell_number}", "exec"), namespace)
+                executed += 1
+            except Exception as exc:  # noqa: BLE001 - report notebook failure verbatim
+                return SmokeResult(
+                    path,
+                    executed,
+                    skipped,
+                    f"cell {cell_number}: {type(exc).__name__}: {exc}",
+                )
+    finally:
+        sys.modules.pop(module_name, None)
 
     return SmokeResult(path, executed, skipped)
 
